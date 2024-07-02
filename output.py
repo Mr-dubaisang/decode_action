@@ -1,65 +1,76 @@
-#2024-06-28 10:06:39
-import requests
-import os
-import time
-import random
-import hashlib
-class yuanshen():
- def __init__(self,cookie):
-  self.cookie=cookie
-  self.h={"Host":"app.zhuanbang.net","accept":"application/json, image/webp","user-agent":"Mozilla/5.0 (Linux; Android 12; M2104K10AC Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36 HuoNiuFusion/1.25.0_231652","x-requested-with":"XMLHttpRequest","sec-fetch-site":"same-origin","sec-fetch-mode":"cors","sec-fetch-dest":"empty","referer":"https://app.zhuanbang.net/assist/activity/47","accept-language":"zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7","accept-encoding":"gzip","Cookie":f"NiuToken={self.cookie}"}
- def sign_(self):
-  d=f"{self.csrftoken}#{self.sessionId}#{self.time}"
-  byte_string=d.encode('utf-8')
-  sha1=hashlib.sha1()
-  sha1.update(byte_string)
-  sign=sha1.hexdigest()
-  return sign
- def video(self,key):
-  i=0
-  while True:
-   i+=1
-   url=f"https://app.zhuanbang.net/{key}/launch?_random={int(time.time() * 1000)}&type=slide"
-   r=requests.get(url,headers=self.h).json()
-   if r['code']==0:
-    print(f"第[{i}]个红包获取信息成功")
-    self.csrftoken=r['data']['extArgs']['csrfToken']
-    self.sessionId=r['data']['extArgs']['sessionId']
-    self.time=int(time.time())
-    url=f"https://app.zhuanbang.net/{key}/award/grant?_t={self.time}"
-    data={"csrfToken":f"{self.csrftoken}","deviceId":f"{self.sessionId}","timestamp":f"{self.time}","sign":f"{self.sign_()}"}
-    r=requests.post(url,headers=self.h,data=data).json()
-    if r['code']==0:
-     print(f"第[{i}]个红包领取成功,获得[{r['data']['awardMoney']}]元")
-    else:
-     print(f"第[{i}]个红包领取失败---[{r['msg']}]")
-     break
-   else:
-    print(f"第[{i}]个获取红包信息失败---[{r['msg']}]")
-    break
-   if i>=21:
-    break
-   time.sleep(random.randint(20,48))
- def main(self):
-  print("===========开始执行快手刷视频===========")
-  self.video("kwai_video")
-  print("===========快手刷视频执行完毕===========")
-  print("===========开始执行抖音刷视频===========")
-  self.video("pangle_video")
-  print("===========抖音刷视频执行完毕===========")
+#2024-07-02 09:06:47
+import random 
+import time 
+import os 
+import requests 
+def sign_in(O0OOOOO0OO0000OOO):
+ OO00O0O00O0O0O0OO={"Content-Type":"application/json","Host":"ys.shajixueyuan.com","Referer":"https://servicewechat.com/wxebdf2c44a2a714c2/70/page-frame.html","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090b13)XWEB/9185","token":f"{O0OOOOO0OO0000OOO}","version":"1.0.13.2","xweb_xhr":"1"}
+ OO0O00000OOOOO00O={}
+ OO0O000OO0OO000OO=requests.post('https://ys.shajixueyuan.com/api/user_sign/sign',headers=OO00O0O00O0O0O0OO,json=OO0O00000OOOOO00O)
+ print(OO0O000OO0OO000OO.text)
+def Re(OOO0O000OOO0OO000):
+ OO0O0OOO000OOO000={"Accept":"application/json","Referer":"https://servicewechat.com/wxebdf2c44a2a714c2/70/page-frame.html","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090b13)XWEB/9185","token":f"{OOO0O000OOO0OO000}","version":"1.0.13.2","xweb_xhr":"1"}
+ OOO00OOO0OO000OOO={"quest_id":4}
+ OO0O0OOO0OOOOOO00=requests.post('https://ys.shajixueyuan.com/api/quest.quest/issueRewards',headers=OO0O0OOO000OOO000,json=OOO00OOO0OO000OOO)
+ print(OO0O0OOO0OOOOOO00.text)
+def info(OOO0O0O00OOO00O0O):
+ OO0OO0OOOOO0000O0={"Accept":"application/json","Content-Type":"application/json","Host":"ys.shajixueyuan.com","Referer":"https://servicewechat.com/wxebdf2c44a2a714c2/70/page-frame.html","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090b13)XWEB/9185","token":f"{OOO0O0O00OOO00O0O}","version":"1.0.13.2","xweb_xhr":"1"}
+ OOOOOO00000O0OOOO=requests.get('https://ys.shajixueyuan.com/api/user/info',headers=OO0OO0OOOOO0000O0)
+ if OOOOOO00000O0OOOO.status_code==200:
+  OOOOOO00000O0OOOO=OOOOOO00000O0OOOO.json()
+  print("果子剩余:",OOOOOO00000O0OOOO['data']['remaining_fruits'])
+  return OOOOOO00000O0OOOO['data']['remaining_fruits']
+def tx(O000000OO00OOOOO0,OOO000OO0OOOO00O0):
+ O00OO000OOO00O0OO={"Accept":"application/json","Accept-Encoding":"gzip, deflate, br","Accept-Language":"zh-CN,zh;q=0.9","Connection":"keep-alive","Content-Length":"55","Content-Type":"application/json","Host":"ys.shajixueyuan.com","Referer":"https://servicewechat.com/wxebdf2c44a2a714c2/70/page-frame.html","Sec-Fetch-Dest":"empty","Sec-Fetch-Mode":"cors","Sec-Fetch-Site":"cross-site","User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090b13)XWEB/9185","token":f"{O000000OO00OOOOO0}","version":"1.0.13.2","xweb_xhr":"1"}
+ O00000O000OO00O0O={"fruit_withdraw_amount":f"{OOO000OO0OOOO00O0}","pay_gateway":"alipay"}
+ OO0O0OOO0O000OO0O=requests.post('https://ys.shajixueyuan.com/api/user.user_withdraw/apply',headers=O00OO000OOO00O0OO,json=O00000O000OO00O0O)
+ print(OO0O0OOO0O000OO0O.text)
+def print_ascii_art():
+ print("// ┏┓   ┏┓")
+ print("// ┏┛┻━━━┛┻┓")
+ print("// ┃       ┃")
+ print("// ┃   ━   ┃")
+ print("// ┃ ┳┛ ┗┳ ┃")
+ print("// ┃       ┃")
+ print("// ┃   ┻   ┃")
+ print("// ┃       ┃")
+ print("// ┗━┓   ┏━┛")
+ print("// ┃   ┃ 分享群：")
+ print("// ┃   ┃ 780261548")
+ print("// ┃   ┗━━━┓")
+ print("// ┃       ┣┓")
+ print("// ┃       ┏┛")
+ print("// ┗┓┓┏━┳┓┏┛")
+ print("// ┃┫┫ ┃┫┫")
+ print("// ┗┻┛ ┗┻┛")
 if __name__=='__main__':
- cookie=''
- if not cookie:
-  cookie=os.getenv("yuanshen_zb")
-  if not cookie:
-   print("⛔️请设置环境变量:yuanshen_zb")
-   exit()
- cookies=cookie.split("@")
- print(f"一共获取到{len(cookies)}个账号")
- i=1
- for cookie in cookies:
-  print(f"\n--------开始第{i}个账号--------")
-  main=yuanshen(cookie)
-  main.main()
-  print(f"--------第{i}个账号执行完毕--------")
-  i+=1
+ print_ascii_art()
+ cookie_list=os.getenv('dfjs')
+ if cookie_list:
+  if "@"in cookie_list:
+   cookie_list=cookie_list.split('@')
+  else:
+   cookie_list=cookie_list.split(' ')
+  for index,_ in enumerate(cookie_list):
+   print("当前为:第{}个".format(index+1))
+   try:
+    info(_)
+    print("="*10)
+    time.sleep(random.uniform(1,3))
+    Re(_)
+    print("="*10)
+    time.sleep(random.uniform(1,3))
+    sign_in(_)
+    print("="*10)
+    time.sleep(random.uniform(1,3))
+    balance=info(_)
+    if balance!=0:
+     print("="*8)
+     tx(_,balance)
+    else:
+     print("不进行tx")
+   except Exception as e:
+    print("出现错误:",e)
+    continue 
+ else:
+  print("变量不存在")
